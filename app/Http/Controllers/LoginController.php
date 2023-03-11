@@ -7,36 +7,41 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         return view('login.index', [
-            "judul" => "Login"
+            'title' => 'Login',
         ]);
     }
 
     public function authenticate(Request $request)
     {
         $credentials = $request->validate([
-            'username' => 'required',
-            'password' => 'required'
+            "email" => "required|email:dns",
+            "password" => "required"
         ]);
 
-        if (Auth::attempt($credentials)) {
+        if(Auth::attempt($credentials)){
             $request->session()->regenerate();
 
             return redirect()->intended('/dashboard');
         }
 
-        return back()->with('loginError', 'Login failed!');
+        return back()->with('LoginError', 'Login failed!');
     }
 
-    public function logout(Request $request)
+    public function logout()
     {
         Auth::logout();
 
-        $request->session()->invalidate();
+        request()->session()->invalidate();
 
-        $request->session()->regenerate();
+        request()->session()->regenerate();
 
         return redirect('/');
     }
