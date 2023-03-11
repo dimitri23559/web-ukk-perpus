@@ -8,7 +8,7 @@
                   Dashboard
               </a>
           </li>
-          @can('admin')
+          
           <li class="nav-item">
               <a class="nav-link {{ Request::is('dashboard/blogs*') ? 'active' : '' }}" href="/dashboard/blogs">
                   <span data-feather="file-text"></span>
@@ -17,7 +17,7 @@
           </li>
       </ul>
 
-      
+      @can('admin')
           <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
               <span>Administrator</span>
           </h6>
